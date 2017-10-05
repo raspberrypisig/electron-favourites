@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script>
+    window.$=window.jQuery=window.jquery=require('jquery')
+    $(document).ready(function() {
+      $("#openfile").click(function() {
+       openFileDialog(null, "filename")
+       return false;
+      })
+      $("#openfolder").click(function() {
+       openFolderDialog()
+       return false;
+      })
+      $("#openwith").click(function() {
+        const filters = [
+         {name: "Windows Executables", extensions:['exe', "bat"]},
+         {name: "All Files", extensions:['*']}
+        ]
+        openFileDialog(filters, "openwith")
+        return false;
+      })
+      $("#submitbutton").click(()=> {
+        const formData = new FormData(document.querySelector("form"))
+        const description = formData.get('description')
+        const filename = formData.get('filename')
+        const openwith = formData.get('openwith')
+        const arguments = formData.get('arguments')
+
+        const formDataNice = {
+          description: description,
+          filename: filename,
+          openwith: openwith,
+          arguments: arguments
+        }
+
+        const ipcRenderer = require('electron').ipcRenderer
+        ipcRenderer.send('addfavourites', formDataNice)
+        require("electron").remote.getCurrentWindow().close()
+        return false;
+      })
+    })
+  </script>
+  <style>
+    body {
+    background-color: #e3e3e3;
+    padding-bottom:30px;
+  }
+
+   section {
+     border: 1px solid grey;
+     margin-top:30px;
+     margin-bottom: 30px;
+     padding:10px;
+   }
+
+   .row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+   }
+
+   h4 {
+    margin-top: 2px;
+    margin-bottom: 4px;
+   }
+    
+   .submitWrapper {
+    width:100%; 
+    text-align: center;
+   }
+
+  </style>
+</head>
+<body>
+<form>
+<section>
+  <div class="row">
+    <h4>Item Details</h4>
+  </div>
+  <div class="row" style="padding-bottom: 0;">
+    <label for="description">Description</label>
+    <input name="description" type="text" placeholder="description" />
+  </div>
+  <div class="row">
+        <label for="fileorfolder">Type</label>
+    <input type="radio" name="fileorfolder" value="file" checked="checked"/> File
+    <input type="radio" name="fileorfolder" value="folder" />
+    Folder
+  </div>
+  <div class="row">
+
+    <label for="filename">Filename</label>
+    <input type="text" name="filename" placeholder="filename" />
+    <button id="openfile">Open File</button>
+    <button id="openfolder">Open Folder</button>
+  </div>
+</section>
+<section>
+  <div class="row">
+    <h4>Action</h4>
+  </div>
+  <div class="row">
+    <label for="openwith">Open With...</label>
+    <input name="openwith" type="text"/>
+    <button id="openwith">Open With...</button>
+  </div>
+  <div class="row">
+    <label for="arguments">Command line arguments</label>
+    <input type="text" name="arguments" maxlength="140" style="width: 50%;" />
+  </div>
+</section>
+<div class="submitWrapper">
+  <button id="submitbutton">Add Favourite</button>
+</div>
+</form>
+
+<script type="text/javascript" src="newfavourite.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "electronhelloworld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "build": {
+    "appId": "boo",
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.7.6",
+    "electron-builder": "^19.27.7"
+  },
+  "dependencies": {
+    "datatables.net": "^1.10.16",
+    "datatables.net-dt": "^1.10.16",
+    "jquery": "^3.2.1",
+    "slickgrid-6pac": "^2.2.13"
+  }
+}

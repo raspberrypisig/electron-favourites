@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favourite Files Utilty</title>
+  <script>
+    window.$=window.jQuery=window.jquery=require('jquery')
+    $(document).ready(()=>(
+       $("#boo").click(function() {
+        openModal()
+       }
+      )
+    ));
+  </script>
+  <style>
+  body {
+    background-color: #e3e3e3;
+  }
+  table {
+    border: 1px solid black;
+    padding:0;
+    margin:0;
+    border-collapse:separate; 
+    border-spacing:0 0;
+  }
+
+  thead {
+    border-bottom: 1px solid black;
+  }
+
+  thead tr {
+    padding:0;
+    margin:0;
+  }
+
+  thead td {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid black;
+  }
+
+  thead td:nth-child(odd) {
+    border-right: 1px solid black;
+  }
+
+</style>
+</head>
+<body>
+
+
+  
+<div style="border: 1px solid #e3e3e3;
+ border-style: groove;
+ margin-bottom:40px; margin-top:40px; padding-bottom:20px; padding-left:20px; padding-right:20px;">
+<h3>Favourites List</h3>
+<table border="0" style="background-color: white;width:100%;">
+  <thead>
+    <tr>
+      <td>
+      File or Directory
+      </td>
+      <td>
+        Open With...
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+<p>
+  <button id="boo">Add Favourite</button> 
+</p>
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>boo</title>
+  <script>
+    window.$ = window.jQuery = window.jquery = require('jquery') 
+    window.dt = require('datatables.net')(window, window.$)
+  </script>
+  <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+Hello World!
+<table id="booTable">
+          <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody>
+  <tr>
+    <td>Two</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>One</td>
+    <td>1</td>
+  </tr>
+</tbody>
+</table>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#booTable").dataTable()
+  });
+</script>
+</body>
+</html>
