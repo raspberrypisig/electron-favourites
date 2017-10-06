@@ -5,6 +5,23 @@
   <script>
     window.$=window.jQuery=window.jquery=require('jquery')
     $(document).ready(function() {
+const storage = require('electron-json-storage')
+     const ipcRenderer = require('electron').ipcRenderer
+     const {remote} = require('electron')
+     let mainWindow = remote.BrowserWindow.fromId(1);
+
+    ipcRenderer.on('favouriteStore', function(event, data) {
+       storage.get('data', function(error, data) {
+          if (error) throw error;
+          
+          mainWindow.webContents.send('updateFavourites')
+          //ipcRenderer.send('updateFavourites')
+          //console.log(data)
+          remote.getCurrentWindow().close()
+       })
+       
+    })
+
       $("#openfile").click(function() {
        openFileDialog(null, "filename")
        return false;
@@ -35,9 +52,9 @@
           arguments: arguments
         }
 
-        const ipcRenderer = require('electron').ipcRenderer
+        //const ipcRenderer = require('electron').ipcRenderer
         ipcRenderer.send('addfavourites', formDataNice)
-        require("electron").remote.getCurrentWindow().close()
+        //require("electron").remote.getCurrentWindow().close()
         return false;
       })
     })

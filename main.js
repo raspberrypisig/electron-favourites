@@ -1,14 +1,19 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
+const storage = require('electron-json-storage')
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+//let mainWindowID
 
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
+  mainWindowID = win.id
+  //console.log(win.id)
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -51,5 +56,37 @@ app.on('activate', () => {
 })
 
 ipcMain.on('addfavourites', (event, data) => {
-  console.log(data) 
+  //console.log(data) 
+  storage.get('data', function(error,olddata) {
+
+  if (!data) {
+    console.log("Store empty")
+    storage.set('data', {
+      data: [data]
+     }
+    )
+  }
+
+  else {
+    console.log("Store not empty")
+    let newdata = olddata['data']
+    newdata.push(data)
+    storage.set('data', {
+      data: newdata
+    })
+  }
+
+  })
+
+
+
+
+const ev = event
+storage.get('data', function(error, data) {
+  if (error) throw error;
+  //console.log(data);
+  //console.log(ev.sender)
+  ev.sender.send('favouriteStore', storage)
+});
+  
 })

@@ -4,7 +4,14 @@
   <title>Favourite Files Utilty</title>
   <script>
     window.$=window.jQuery=window.jquery=require('jquery')
+    const ipcRenderer = require('electron').ipcRenderer
+
+    ipcRenderer.on('updateFavourites', function(event) {
+      alert('hi')
+    }) 
+
     $(document).ready(()=>(
+
        $("#boo").click(function() {
         openModal()
        }
