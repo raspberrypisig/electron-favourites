@@ -25,6 +25,7 @@
     "datatables.net-dt": "^1.10.16",
     "electron-json-storage": "^3.1.1",
     "jquery": "^3.2.1",
-    "slickgrid-6pac": "^2.2.13"
+    "slickgrid-6pac": "^2.2.13",
+    "vue": "^2.4.4"
   }
 }
