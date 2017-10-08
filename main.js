@@ -47,6 +47,7 @@ app.on('window-all-closed', () => {
   }
 })
 
+
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -59,7 +60,7 @@ ipcMain.on('addfavourites', (event, data) => {
   //console.log(data) 
   storage.get('data', function(error,olddata) {
 
-  if (!data) {
+  if (Object.keys(olddata).length === 0) {
     console.log("Store empty")
     storage.set('data', {
       data: [data]

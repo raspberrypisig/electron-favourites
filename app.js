@@ -1,7 +1,21 @@
 const { remote } = require('electron');
 const storage = require('electron-json-storage')
 const Vue = require('vue/dist/vue.common.js')
+const ipcRenderer = require('electron').ipcRenderer
+let vm = new Vue({
+      el: '#favourites-table',
+    data: function() {
+      return {
+       favourites: {
+         favourites:[]
+       }
+      }
+    }
+    
+})
 
+
+function refreshFavourites() {
 storage.get('data', (error, data)=>{
   if (error) throw error;
 
@@ -11,16 +25,20 @@ storage.get('data', (error, data)=>{
     newdata = data['data']
   }
 
+
+  Vue.set(vm.favourites,'favourites', newdata)
+/*
   new Vue({
     el: '#favourites-table',
     data: {
       'favourites': newdata
     }
 })
+*/
 
 })
 
-
+}
 
 function openModal() {
   let win = new remote.BrowserWindow({
@@ -36,7 +54,15 @@ function openModal() {
   })
 
   
+
   var newfavourite = 'file://' + __dirname + '/newfavourite.html'
   win.loadURL(newfavourite);
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 }
+
+ipcRenderer.on('updateFavourites', function(event) {
+  refreshFavourites()
+}) 
+
+refreshFavourites()
+

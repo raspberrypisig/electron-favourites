@@ -4,11 +4,6 @@
   <title>Favourite Files Utilty</title>
   <script>
     window.$=window.jQuery=window.jquery=require('jquery')
-    const ipcRenderer = require('electron').ipcRenderer
-
-    ipcRenderer.on('updateFavourites', function(event) {
-      alert('hi')
-    }) 
 
     $(document).ready(()=>(
 
@@ -72,7 +67,7 @@
   </thead>
   <tbody id="favourites-table">
 
-    <template v-for="favourite of favourites">
+    <template v-for="favourite of favourites.favourites">
       <tr>
       <td>{{ favourite.filename }}</td>
       <td>{{ favourite.openwith }}</td>
