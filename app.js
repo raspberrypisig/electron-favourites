@@ -2,6 +2,8 @@ const { remote } = require('electron');
 const storage = require('electron-json-storage')
 const Vue = require('vue/dist/vue.common.js')
 const ipcRenderer = require('electron').ipcRenderer
+const { spawn } = require('child_process')
+
 let vm = new Vue({
       el: '#favourites-table',
     data: function() {
@@ -39,6 +41,15 @@ storage.get('data', (error, data)=>{
 })
 
 }
+
+function openApp(index) {
+  const favourite = vm.favourites.favourites[index];
+  console.log(favourite)
+  filename = favourite.filename
+  openwith =  favourite.openwith
+  spawn(openwith, [filename])
+}
+
 
 function openModal() {
   let win = new remote.BrowserWindow({

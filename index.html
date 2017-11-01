@@ -5,6 +5,8 @@
   <script>
     window.$=window.jQuery=window.jquery=require('jquery')
 
+
+
     $(document).ready(()=>(
 
        $("#boo").click(function() {
@@ -44,6 +46,15 @@
     border-right: 1px solid black;
   }
 
+  tbody td:nth-child(odd) {
+    color: #1a0dab;
+  }
+
+  tbody td:nth-child(odd):hover{
+    text-decoration: underline;
+    
+  }
+
 </style>
 </head>
 <body>
@@ -67,9 +78,9 @@
   </thead>
   <tbody id="favourites-table">
 
-    <template v-for="favourite of favourites.favourites">
+    <template v-for="(favourite,index) in favourites.favourites">
       <tr>
-      <td>{{ favourite.filename }}</td>
+      <td><a v-bind:onclick="'openApp(' + index + ')'" href="#">{{ favourite.filename }}</a></td>
       <td>{{ favourite.openwith }}</td>
       </tr>
     </template>
